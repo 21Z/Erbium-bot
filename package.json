@@ -31,6 +31,7 @@
     "openai": "4.28.0",
     "pokecord": "21Z/pokecord",
     "quick.db": "9.1.7",
+    "typescript": "^5.4.5",
     "youtube-sr": "4.3.11"
   },
   "engines": {
