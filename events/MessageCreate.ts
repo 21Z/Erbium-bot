@@ -47,7 +47,7 @@ class MessageCreate extends Event {
                     if (msg.author.id === this.client.user.id) {
                         if (msg.reference) {
                             const referenceMessage = message.channel.messages.cache.get(msg.reference.messageId);
-                            if (referenceMessage.author.id !== message.author.id) return;
+                            if (!referenceMessage || referenceMessage.author.id !== message.author.id) return;
                         }
                         conversationLog.push({
                             "role": "assistant",
@@ -71,6 +71,7 @@ class MessageCreate extends Event {
                 }
                 message.reply(result.message.content).catch(() => {});
             } catch (error) {
+                console.error(e);
                 if (error instanceof OpenAI.APIError) {
                     if (error.status === 429) return message.reply("The API is being ratelimited!" + `\`\`\`js\n${error.message}\n\`\`\``);
                     message.reply("Something went wrong!" + `\`\`\`js\n${error.message}\n\`\`\``).catch(() => {});
